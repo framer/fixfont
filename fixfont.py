@@ -5,6 +5,7 @@ import sys
 import os
 from fontTools.ttx import makeOutputFileName
 from fontTools.ttLib import TTFont
+from unidecode import unidecode
 
 # WOFF name table IDs
 FAMILY = 1
@@ -32,7 +33,7 @@ def main(args=None):
 
     family, subfamily = extract_names(options.input, options.family_name, options.subfamily_name)
     full = "%s %s" % (family, subfamily)
-    postscript = "%s-%s" % (family.replace(" ", ""), subfamily.replace(" ", ""))
+    postscript = "%s-%s" % (postscriptify(family), postscriptify(subfamily))[:63]
 
     for rec in font["name"].names:
         if rec.nameID in [FAMILY, PREFERRED_FAMILY, WWS_FAMILY]:
@@ -51,6 +52,9 @@ def main(args=None):
         outfile = makeOutputFileName(filename, None, ext)
         font.save(outfile)
         print("Output saved in “%s”" % outfile)
+
+def postscriptify(name):
+    return "".join(char for char in unidecode(name) if 33 <= ord(char) <= 126 and char not in " [](){}<>/%")
 
 def extract_names(file, family_name=None, subfamily_name=None):
     filename, _ = os.path.splitext(os.path.basename(file))

@@ -63,7 +63,7 @@ def extract_names(file, family_name=None, subfamily_name=None):
         family, subfamily = filename.split("-")
     elif filename.count(" ") == 1:
         family, subfamily = filename.split(" ")
-    else:
+    elif not family_name or not subfamily_name:
         print("Could not figure out names from “%s”" % filename, file=sys.stderr)
         sys.exit(1)
 

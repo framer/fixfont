@@ -45,6 +45,10 @@ def main(args=None):
         elif rec.nameID == POSTSCRIPT_NAME:
             rec.string = postscript
 
+    # Remove extended metadata and private data
+    font.flavorData.metaData = None
+    font.flavorData.privData = None
+
     if options.output:
         font.save(options.output)
     else:

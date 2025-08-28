@@ -9,7 +9,9 @@ This script can be used to fix the metadata of those fonts files.
 
 ## Usage
 
-```sh
+To fix a font's display names (the most common use case), run:
+
+```
 fixfont.py <font.woff2> [-f "family name"] [-s "subfamily name"] [-o output.woff2]
 ```
 
@@ -22,6 +24,7 @@ fixfont.py <font.woff2> [-f "family name"] [-s "subfamily name"] [-o output.woff
 
 In addition to updating the name, it is also possible to set some other font metadata by using the following options:
 
+- `--no-rename`: by default, the font family and subfamily will always be renamed (automatically based on the filename, if no name options are provided). Pass this flag to disable renaming.
 - `--weight-class=400`: sets the weight of the font to the given numeric value. Here 400 is used, meaning "normal". See also the [list of common values](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
 - `--width-class=5`: sets the width class of the font to the given integer class, which should be between 1 and 9. Here 5 is used, meaning "normal". See also the [list of valid values](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#uswidthclass).
 - `--italic`: marks the font as italic.

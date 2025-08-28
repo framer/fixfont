@@ -22,6 +22,7 @@ def main():
     parser.add_argument("input")
     parser.add_argument("-f", "--family-name")
     parser.add_argument("-s", "--subfamily-name")
+    parser.add_argument("--no-rename", action="store_true")
     parser.add_argument("--weight-class", type=int)
     parser.add_argument("--width-class", type=int)
     parser.add_argument("-i", "--italic", action=argparse.BooleanOptionalAction)
@@ -35,7 +36,7 @@ def main():
         print("Input file is not a WOFF2 font", file=sys.stderr)
         return 1
 
-    if options.family_name or options.subfamily_name:
+    if not options.no_rename:
         family, subfamily = extract_names(options.input, options.family_name, options.subfamily_name)
         full = "%s %s" % (family, subfamily)
         postscript = "%s-%s" % (postscriptify(family), postscriptify(subfamily))[:63]
